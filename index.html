@@ -48,7 +48,7 @@
 			<div id="reader-path-bar-holder">
 				<div id="reader-path-bar">
 					<div id="reader-path-bar-label" class="reader-path-bar-item">Path: </div>
-					<input id="reader-path-bar-input" class="reader-path-bar-item" type="text" name="path to data" v-model="path">
+					<input id="reader-path-bar-input" class="reader-path-bar-item" type="text" name="path to data" v-model="path" readonly>
 					<button id="reader-path-bar-copy" v-clipboard:copy="path" @click="copied">{{ copy }}</button>
 				</div>
 			</div>
