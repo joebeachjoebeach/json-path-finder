@@ -1,6 +1,5 @@
-<a href="">
-  <img alt="first release" src="https://img.shields.io/badge/release-v1.0-brightgreen.svg" />
-</a>
+<a href="#"><img alt="first release" src="https://img.shields.io/badge/release-v1.0-brightgreen.svg" /></a>
+
 
 <strong>JSON Path Finder</strong> is a web-app designed to take some of the hassle out of accessing JSON data with dot/bracket notation.
 
