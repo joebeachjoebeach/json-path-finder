@@ -102,12 +102,12 @@
 
   <div>
     <div class="json-reader-tree-property" :class="{ 'json-reader-tree-property-selected': selected }" @click="clicked(keyName)">
-      <div v-if="typeof item == 'object' && isOpen" class="json-reader-tree-property-arrow">&#9660; </div>
-      <div v-if="typeof item == 'object' && !isOpen" class="json-reader-tree-property-arrow">&#9654; </div>
+      <div v-if="typeof item === 'object' && isOpen" class="json-reader-tree-property-arrow">&#9660; </div>
+      <div v-if="typeof item === 'object' && !isOpen" class="json-reader-tree-property-arrow">&#9654; </div>
       <div>{{ keyName }}:</div>
-      <div v-if="typeof item != 'object'" class="json-reader-tree-property-value">{{ item }}</div>
+      <div v-if="typeof item !== 'object'" class="json-reader-tree-property-value">{{ item }}</div>
     </div>
-    <json-tree v-if="typeof item == 'object' && isOpen"
+    <json-tree v-if="typeof item === 'object' && isOpen"
       :close="close"
       :open="isOpen"
       :child-open="false"
@@ -165,21 +165,21 @@ Vue.component("json-tree", {
       var newPath;
       for (var item in oldObj) {
         // compare the keys and the objects themselves to find a match
-        if (item == key && oldObj == newObj) {
+        if (item.toString() === key.toString() && oldObj === newObj) {
           // put array indices in brackets
           if (Array.isArray(newObj))
             return path + "[" + item + "]";
           // put strings with spaces, periods, or brackets in brackets
-          else if (item.indexOf(" ") != -1 || item.indexOf(".") != -1 || item.indexOf("[") != -1 || item.indexOf("]") != -1)
+          else if (/[^A-Za-z0-9_$]/.test(item))
             return path + '["' + item + '"]';
           // use dot notation for all else
           else
             return path + "." + item;
         }
-        else if (typeof oldObj[item] == "object") {
+        else if (typeof oldObj[item] === "object") {
           if (Array.isArray(oldObj))
             newPath = path + "[" + item + "]";
-          else if (item.indexOf(" ") != -1 || item.indexOf(".") != -1 || item.indexOf("[") != -1 || item.indexOf("]") != -1)
+          else if (/[^A-Za-z0-9_$]/.test(item))
             newPath = path + '["' + item + '"]';
           else
             newPath = path + "." + item;
@@ -355,7 +355,7 @@ var app = new Vue({
         // collapse the reader view unless the user is editing the existing JSON in the editor:
         // if the key at [0] of the previous JSON and the new JSON are the same, then the user is probably editing,
         // rather than copy-pasting a new JSON object
-        if (Object.keys(newJson)[0] != Object.keys(this.json)[0])
+        if (Object.keys(newJson)[0] !== Object.keys(this.json)[0])
           this.close = !this.close
         this.json = newJson;
         this.error = false;
