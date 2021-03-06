@@ -191,6 +191,7 @@ button:hover {
 				display: flex;
 				overflow: auto;
 				padding: 10px 4px;
+				white-space: pre;
 			}
 
 			.json-reader-tree-property:hover {
