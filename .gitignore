@@ -1,4 +1,6 @@
 **/.DS_Store
-json-path-finder.sublime-project
-json-path-finder.sublime-workspace
-
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+dist
+TODO.md
