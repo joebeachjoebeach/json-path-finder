@@ -102,8 +102,10 @@
 
   <div>
     <div class="json-reader-tree-property" :class="{ 'json-reader-tree-property-selected': selected }" @click="clicked(keyName)">
-      <div v-if="typeof item === 'object' && isOpen" class="json-reader-tree-property-arrow">&#9660; </div>
-      <div v-if="typeof item === 'object' && !isOpen" class="json-reader-tree-property-arrow">&#9654; </div>
+       <template v-if="item !== null && typeof item === 'object'">
+        <div v-if="isOpen" class="json-reader-tree-property-arrow">&#9660; </div>
+        <div v-else class="json-reader-tree-property-arrow">&#9654; </div>
+      </template>
       <div>{{ keyName }}:</div>
       <div v-if="typeof item !== 'object'" class="json-reader-tree-property-value">{{ item }}</div>
     </div>
