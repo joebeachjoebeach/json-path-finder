@@ -389,6 +389,12 @@ var app = new Vue({
   }
 });
 
+document.querySelectorAll(".big-box").forEach((el) => { el.style.height= (window.innerHeight - 90) + "px" });
+
+addEventListener('resize', (event) => {
+  document.querySelectorAll(".big-box").forEach((el) => { el.style.height= (window.innerHeight - 90) + "px" });
+});
+
 </script>
 </body>
   
