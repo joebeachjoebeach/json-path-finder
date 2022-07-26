@@ -389,11 +389,18 @@ var app = new Vue({
   }
 });
 
-document.querySelectorAll(".big-box").forEach((el) => { el.style.height= (window.innerHeight - 90) + "px" });
+// set the initial height of the boxes
+sizeBigBoxesToFitScreen();
 
-addEventListener('resize', (event) => {
-  document.querySelectorAll(".big-box").forEach((el) => { el.style.height= (window.innerHeight - 90) + "px" });
+// and update box height on window resize
+addEventListener('resize', (_event) => {
+  sizeBigBoxesToFitScreen();
 });
+
+function sizeBigBoxesToFitScreen()
+{
+  document.querySelectorAll(".big-box").forEach((el) => { el.style.height = (window.innerHeight - 90) + "px" });
+}
 
 </script>
 </body>
