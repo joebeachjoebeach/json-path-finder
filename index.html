@@ -389,6 +389,19 @@ var app = new Vue({
   }
 });
 
+// set the initial height of the boxes
+sizeBigBoxesToFitScreen();
+
+// and update box height on window resize
+addEventListener('resize', (_event) => {
+  sizeBigBoxesToFitScreen();
+});
+
+function sizeBigBoxesToFitScreen()
+{
+  document.querySelectorAll(".big-box").forEach((el) => { el.style.height = (window.innerHeight - 90) + "px" });
+}
+
 </script>
 </body>
   
