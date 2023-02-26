@@ -6,7 +6,7 @@
   <meta name="description" content="JSON Path Finder">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#004C8C" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#004C8C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#639dda" media="(prefers-color-scheme: dark)">
   <title>JSON Path Finder</title>
   <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400" rel="stylesheet">
@@ -267,6 +267,7 @@ Vue.component("json-key", {
 var app = new Vue({
   el: "#app",
   data: {
+    isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
     editor: "",
     // this holds the JSON to be read; initialize with instructions
     json: {
@@ -389,7 +390,7 @@ var app = new Vue({
     minify: function() {
       this.editor.setValue(vkbeautify.jsonmin(this.editor.getValue()), 1);
     },
-    darkmode: function() {
+    toggleDarkMode: function() {
       invert();
     }
   }
@@ -403,6 +404,13 @@ addEventListener('resize', (_event) => {
   sizeBigBoxesToFitScreen();
 });
 
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const newColorScheme = event.matches ? "dark" : "light";
+    console.log(newColorScheme);
+    if (newColorScheme == "light") setLightMode();
+    if (newColorScheme == "dark") setDarkMode();
+});
+
 function sizeBigBoxesToFitScreen()
 {
   document.querySelectorAll(".big-box").forEach((el) => { el.style.height = (window.innerHeight - 90) + "px" });
@@ -410,35 +418,14 @@ function sizeBigBoxesToFitScreen()
 
 // set initial dark or light mode based on users preference
 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    darkMode();
+    setDarkMode();
 } else {
-    lightMode();
+    setLightMode();
 }
 
-// watch for user to change system to or from dark mode
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    const newColorScheme = event.matches ? "dark" : "light";
-    if (newColorScheme == "light") lightMode();
-    if (newColorScheme == "dark") darkMode();
-});
-
-function invert() { // dark mode
-  let css = 'html {-webkit-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg);' +
-    '-moz-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg);' + 
-    '-o-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg);' + 
-    '-ms-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg); }',
-    head = document.getElementsByTagName('head')[0],
-    style = document.createElement('style');
-
-  if (!window.counter) {
-    window.counter = 1;
-  } else {
-    window.counter++;
-    if (window.counter % 2 == 0) { // light mode
-      css ='html {-webkit-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -moz-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -o-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -ms-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); }';
-    }
-  }
-
+function setCss(css) {
+  const head = document.querySelector('head');
+  const style = document.createElement('style');
   style.type = 'text/css';
   if (style.styleSheet) {
     style.styleSheet.cssText = css;
@@ -448,15 +435,28 @@ function invert() { // dark mode
   head.appendChild(style);
 }
 
-function darkMode() {
-  window.counter=0;
-  invert();
-}
+function setLightMode() {
+  const css = 'html {-webkit-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -moz-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -o-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -ms-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); }'; // your lightmode css
+  setCss(css);
+  app.isDarkMode = false;
+};
 
-function lightMode() {
-  window.counter=1;
-  invert();
-}
+function setDarkMode() {
+  const css = 'html {-webkit-filter: invert(85%) brightness(.9) saturate(1.5) hue-rotate(180deg);' +
+    '-moz-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg);' + 
+    '-o-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg);' + 
+    '-ms-filter: invert(100%) brightness(.37) saturate(2.8) hue-rotate(180deg); }'; // your darkmode css
+  setCss(css);
+  app.isDarkMode = true;
+
+};
+
+function invert() {
+  if (app.isDarkMode) {
+    return setLightMode();
+  }
+  setDarkMode();
+};
 
 </script>
 </body>
