@@ -409,8 +409,8 @@ addEventListener('resize', (_event) => {
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     const newColorScheme = event.matches ? "dark" : "light";
     console.log(newColorScheme);
-    if (newColorScheme == "light") setLightMode();
-    if (newColorScheme == "dark") setDarkMode();
+    if (newColorScheme === "light") setLightMode();
+    if (newColorScheme === "dark") setDarkMode();
 });
 
 function sizeBigBoxesToFitScreen()
