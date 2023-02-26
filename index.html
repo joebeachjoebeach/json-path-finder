@@ -5,6 +5,8 @@
   <meta charset="utf-8">
   <meta name="description" content="JSON Path Finder">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#004C8C" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#004C8C" media="(prefers-color-scheme: dark)">
   <title>JSON Path Finder</title>
   <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400" rel="stylesheet">
@@ -37,6 +39,7 @@
         <button class="editor-button-row-button" @click="loadSample">Sample</button>
         <button class="editor-button-row-button" @click="beautify">Beautify</button>
         <button class="editor-button-row-button" @click="minify">Minify</button>
+        <button class="editor-button-row-button" @click="darkmode">Dark Mode</button>
       </div>
       <!-- ace editor -->
       <div id="editor"></div>
@@ -385,6 +388,9 @@ var app = new Vue({
     },
     minify: function() {
       this.editor.setValue(vkbeautify.jsonmin(this.editor.getValue()), 1);
+    },
+    darkmode: function() {
+      invert();
     }
   }
 });
@@ -400,6 +406,55 @@ addEventListener('resize', (_event) => {
 function sizeBigBoxesToFitScreen()
 {
   document.querySelectorAll(".big-box").forEach((el) => { el.style.height = (window.innerHeight - 90) + "px" });
+}
+
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    darkMode();
+} else {
+    lightMode();
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const newColorScheme = event.matches ? "dark" : "light";
+    console.log(newColorScheme);
+    if (newColorScheme == "light") lightMode();
+    if (newColorScheme == "dark") darkMode();
+});
+
+function invert() { // dark mode
+  let css = 'html {-webkit-filter: invert(90%) brightness(.4) saturate(2.8) hue-rotate(180deg);' +
+    '-moz-filter: invert(100%) brightness(.5) saturate(1.7) hue-rotate(180deg);' + 
+    '-o-filter: invert(100%) brightness(.5) saturate(1.7) hue-rotate(180deg);' + 
+    '-ms-filter: invert(100%) brightness(.5) saturate(1.7) hue-rotate(180deg); }',
+    head = document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+  if (!window.counter) {
+    window.counter = 1;
+  } else {
+    window.counter++;
+    if (window.counter % 2 == 0) { // light mode
+      css ='html {-webkit-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -moz-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -o-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -ms-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); }'
+    }
+  }
+
+  style.type = 'text/css';
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+  head.appendChild(style);
+}
+
+function darkMode() {
+  window.counter=0;
+  invert();
+}
+
+function lightMode() {
+  window.counter=1;
+  invert();
 }
 
 </script>
