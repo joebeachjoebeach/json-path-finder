@@ -422,10 +422,10 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', eve
 });
 
 function invert() { // dark mode
-  let css = 'html {-webkit-filter: invert(90%) brightness(.4) saturate(2.8) hue-rotate(180deg);' +
-    '-moz-filter: invert(100%) brightness(.5) saturate(1.7) hue-rotate(180deg);' + 
-    '-o-filter: invert(100%) brightness(.5) saturate(1.7) hue-rotate(180deg);' + 
-    '-ms-filter: invert(100%) brightness(.5) saturate(1.7) hue-rotate(180deg); }',
+  let css = 'html {-webkit-filter: invert(95%) brightness(.4) saturate(2.8) hue-rotate(180deg);' +
+    '-moz-filter: invert(95%) brightness(.4) saturate(2.8) hue-rotate(180deg);' + 
+    '-o-filter: invert(95%) brightness(.4) saturate(2.8) hue-rotate(180deg);' + 
+    '-ms-filter: invert(95%) brightness(.4) saturate(2.8) hue-rotate(180deg); }',
     head = document.getElementsByTagName('head')[0],
     style = document.createElement('style');
 
