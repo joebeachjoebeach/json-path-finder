@@ -418,7 +418,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 // watch for user to change system to or from dark mode
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     const newColorScheme = event.matches ? "dark" : "light";
-    console.log(newColorScheme);
     if (newColorScheme == "light") lightMode();
     if (newColorScheme == "dark") darkMode();
 });
