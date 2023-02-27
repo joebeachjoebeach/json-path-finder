@@ -11,7 +11,7 @@
   <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-  <link rel="stylesheet" href="css/style.20210306.css">
+  <link rel="stylesheet" href="css/style.20230226.css">
   <script type="text/javascript" src="./lib/vue-2.6.14.js"></script>
   <script type="text/javascript" src="https://cdn.rawgit.com/Inndy/vue-clipboard2/master/dist/vue-clipboard.min.js"></script>
   <script src="./lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -29,7 +29,7 @@
         <h2 class="title-bar-item">JSON Path Finder</h2>
       </div>
       <div class="title-bar-item">
-        <a href="#" @click="toggleDarkMode" v-bind:alt='(isDarkMode ? "Light Mode" : "Dark Mode")'><img width="30" height="30" src="./images/contrast-icon.png"></a>
+        <button id="dark-mode-button" @click="toggleDarkMode" style="background-color: transparent; height: auto; width: auto;"><img width="30" height="30" src="./images/contrast-icon.png" v-bind:title='(isDarkMode ? "Light Mode" : "Dark Mode")'></button>
         &nbsp;
         <a href="https://github.com/joebeachjoebeach/json-path-finder" target="_blank"><img src="./images/github-light.png" alt="find this project on github"></a>
       </div>
@@ -408,7 +408,6 @@ addEventListener('resize', (_event) => {
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     const newColorScheme = event.matches ? "dark" : "light";
-    console.log(newColorScheme);
     if (newColorScheme === "light") setLightMode();
     if (newColorScheme === "dark") setDarkMode();
 });

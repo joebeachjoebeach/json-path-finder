@@ -54,6 +54,14 @@ button:hover {
 	width: 100%;
 }
 
+/* dark mode button */
+#dark-mode-button {
+  background-color: transparent;
+  -webkit-appearance: none;
+  height: auto;
+  width: auto;
+}
+
 
 /* title bar */
 #title-bar {
