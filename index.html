@@ -5,11 +5,13 @@
   <meta charset="utf-8">
   <meta name="description" content="JSON Path Finder">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#004C8C" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#639dda" media="(prefers-color-scheme: dark)">
   <title>JSON Path Finder</title>
   <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-  <link rel="stylesheet" href="css/style.20210306.css">
+  <link rel="stylesheet" href="css/style.20230226.css">
   <script type="text/javascript" src="./lib/vue-2.6.14.js"></script>
   <script type="text/javascript" src="https://cdn.rawgit.com/Inndy/vue-clipboard2/master/dist/vue-clipboard.min.js"></script>
   <script src="./lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -27,6 +29,8 @@
         <h2 class="title-bar-item">JSON Path Finder</h2>
       </div>
       <div class="title-bar-item">
+        <button id="dark-mode-button" @click="toggleDarkMode" style="background-color: transparent; height: auto; width: auto;"><img width="30" height="30" src="./images/contrast-icon.png" v-bind:title='(isDarkMode ? "Light Mode" : "Dark Mode")'></button>
+        &nbsp;
         <a href="https://github.com/joebeachjoebeach/json-path-finder" target="_blank"><img src="./images/github-light.png" alt="find this project on github"></a>
       </div>
     </div>
@@ -37,6 +41,7 @@
         <button class="editor-button-row-button" @click="loadSample">Sample</button>
         <button class="editor-button-row-button" @click="beautify">Beautify</button>
         <button class="editor-button-row-button" @click="minify">Minify</button>
+        
       </div>
       <!-- ace editor -->
       <div id="editor"></div>
@@ -264,6 +269,7 @@ Vue.component("json-key", {
 var app = new Vue({
   el: "#app",
   data: {
+    isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
     editor: "",
     // this holds the JSON to be read; initialize with instructions
     json: {
@@ -385,6 +391,9 @@ var app = new Vue({
     },
     minify: function() {
       this.editor.setValue(vkbeautify.jsonmin(this.editor.getValue()), 1);
+    },
+    toggleDarkMode: function() {
+      invert();
     }
   }
 });
@@ -397,10 +406,58 @@ addEventListener('resize', (_event) => {
   sizeBigBoxesToFitScreen();
 });
 
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const newColorScheme = event.matches ? "dark" : "light";
+    if (newColorScheme === "light") setLightMode();
+    if (newColorScheme === "dark") setDarkMode();
+});
+
 function sizeBigBoxesToFitScreen()
 {
   document.querySelectorAll(".big-box").forEach((el) => { el.style.height = (window.innerHeight - 90) + "px" });
 }
+
+// set initial dark or light mode based on users preference
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setDarkMode();
+} else {
+    setLightMode();
+}
+
+function setCss(css) {
+  const head = document.querySelector('head');
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+  head.appendChild(style);
+}
+
+function setLightMode() {
+  const css = 'html {-webkit-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -moz-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -o-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); -ms-filter: invert(0%) brightness(1) saturate(1) hue-rotate(0deg); }'; // your lightmode css
+  setCss(css);
+  app.isDarkMode = false;
+};
+
+function setDarkMode() {
+  const css = 'html {-webkit-filter: invert(85%) brightness(.9) saturate(1.5) hue-rotate(180deg);' +
+    '-moz-filter: invert(85%) brightness(.9) saturate(1.5) hue-rotate(180deg);' + 
+    '-o-filter: invert(85%) brightness(.9) saturate(1.5) hue-rotate(180deg);' + 
+    '-ms-filter: invert(85%) brightness(.9) saturate(1.5) hue-rotate(180deg); }'; // your darkmode css
+  setCss(css);
+  app.isDarkMode = true;
+
+};
+
+function invert() {
+  if (app.isDarkMode) {
+    return setLightMode();
+  }
+  setDarkMode();
+};
 
 </script>
 </body>
