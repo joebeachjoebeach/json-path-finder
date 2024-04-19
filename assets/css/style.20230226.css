@@ -1,0 +1,323 @@
+/* reset */
+* {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* set up general rules */
+html,
+body {
+  background-color: #e7ecef;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  width: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+}
+
+button {
+  font-size: 1em;
+  font-family: "Roboto", sans-serif;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+p {
+  margin: 0 0 12px 0;
+}
+
+/* app container */
+#app {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+/* dark mode button */
+#dark-mode-button {
+  background-color: transparent;
+  -webkit-appearance: none;
+  height: auto;
+  width: auto;
+}
+
+/* title bar */
+#title-bar {
+  align-items: center;
+  background-color: #004c8c;
+  color: white;
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.title-bar-item {
+  margin: 0 15px;
+}
+
+/* main app parts: editor and reader; */
+.big-box {
+  background-color: white;
+  box-shadow: 0 2px 5px #858889;
+  flex: 1;
+  font-size: 1em;
+  height: 800px;
+  margin: 10px;
+  min-width: 480px;
+}
+
+/* editor box items */
+#editor-button-row {
+  display: flex;
+  font-size: 0.9em;
+  justify-content: flex-end;
+  margin: 0 10px 0 100px;
+  position: relative;
+  top: 7px;
+  z-index: 100;
+}
+
+.editor-button-row-button {
+  background-color: #0277bd;
+  box-shadow: 0 2px 5px #888;
+  color: white;
+  font-weight: 400;
+  font-size: 0.95em;
+  height: 25px;
+  width: 70px;
+  margin: 0 3px;
+}
+
+#editor {
+  height: 100%;
+  font-size: 1em;
+  position: relative;
+  bottom: 25px;
+  width: 100%;
+}
+
+/* JSON reader container*/
+#reader-box {
+  display: flex;
+  flex-direction: column;
+}
+
+/* path bar */
+#reader-path-bar-holder {
+  align-items: center;
+  display: flex;
+  height: 40px;
+}
+
+#reader-path-bar {
+  align-items: center;
+  box-shadow: 0 2px 5px #888;
+  display: flex;
+  flex: 1;
+  height: 25px;
+  margin: 0 10px;
+}
+
+.reader-path-bar-item {
+  height: 100%;
+  padding: 0 10px;
+}
+
+#reader-path-bar-label {
+  align-items: center;
+  display: flex;
+  border-right: 1px solid #ccc;
+}
+
+#reader-path-bar-input {
+  color: #455a64;
+  flex: 1;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9em;
+}
+
+#reader-path-bar-copy {
+  background-color: white;
+  border-left: 1px solid #ccc;
+  height: 25px;
+  width: 70px;
+}
+
+/* the JSON reader itself */
+#json-reader {
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+}
+
+#json-reader-error {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9em;
+  height: 200px;
+  margin: 0 0 0 10px;
+  width: 90%;
+}
+
+.json-reader-error-part {
+  margin: 10px 0 0 0;
+}
+
+#json-reader-error-message {
+  color: #b91400;
+}
+
+.json-reader-tree-subtree {
+  margin: 0 0 0 25px;
+  min-width: 400px;
+}
+
+.json-reader-tree-parent {
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  color: #0277bd;
+  overflow: auto;
+  padding: 10px 4px;
+  white-space: pre;
+  width: 100%;
+}
+
+.json-reader-tree-property {
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  color: #0277bd;
+  display: flex;
+  overflow: auto;
+  padding: 10px 4px;
+  white-space: pre;
+  width: 100%;
+}
+
+.json-reader-tree-parent:hover {
+  cursor: pointer;
+}
+
+.json-reader-tree-property-arrow {
+  font-size: 0.5em;
+  margin: 0 5px 0 0;
+}
+
+.json-reader-tree-property-value {
+  color: #455a64;
+  padding: 0 10px 0 25px;
+}
+
+.json-reader-tree-property-selected {
+  background-color: #c1d5e0;
+}
+
+/* footer */
+footer {
+  align-items: center;
+  background-color: #004c8c;
+  color: white;
+  display: flex;
+  height: 25px;
+  width: 100%;
+}
+
+#footer-credit {
+  margin: 0 0 0 10px;
+}
+
+.overlay-mask {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+.overlay-container {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  color: black;
+  background-color: white;
+  width: 530px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.overlay-header {
+  padding: 0 0 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #004c8c;
+  color: white;
+}
+
+.overlay-body {
+  padding: 20px 0 0 0;
+}
+
+.overlay-heading {
+  margin: 24px 0 0 0;
+}
+
+.overlay-close {
+  margin: 0 0 20px 0;
+  background-color: transparent;
+  padding: 5px 12px;
+  font-size: 24px;
+  color: #ccc;
+}
+
+.overlay-body {
+  margin: 7px 30px;
+  justify-content: space-between;
+}
+
+.overlay-footer {
+  margin: 25px 30px 20px 30px;
+  width: full;
+  display: flex;
+  justify-content: center;
+}
+
+.overlay-footer-button {
+  background-color: #0277bd;
+  border-radius: 2px;
+  color: white;
+  font-weight: 400;
+  font-size: 0.95em;
+  height: 30px;
+  width: 70px;
+  margin: 0 3px;
+}
+
+.text-blue {
+  color: #004c8c;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
