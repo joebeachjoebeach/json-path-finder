@@ -203,6 +203,7 @@ p {
   display: flex;
   overflow: auto;
   padding: 10px 4px;
+  user-select: text;
   white-space: pre;
   width: 100%;
 }
