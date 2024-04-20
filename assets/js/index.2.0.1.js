@@ -3,8 +3,9 @@
 const VERSION_MAP = {
   "1.0.0": 1,
   "2.0.0": 2,
+  "2.0.1": 3,
 };
-const VERSION = "2.0.0";
+const VERSION = "2.0.1";
 
 const COPY = "Copy";
 const COPIED = "Copied";
@@ -516,7 +517,7 @@ function initVersion2Overlay() {
   const lastVersionViewedStr = localStorage.getItem("lastVersionViewed");
   const lastVersionViewed = parseInt(lastVersionViewedStr ?? 2, 10);
 
-  if (lastVersionViewed < currentVersion) {
+  if (lastVersionViewed < 2) {
     const overlayMask = document.getElementById("v2-overlay-mask");
     initOverlay(overlayMask);
     overlayMask.style.display = "block";
