@@ -1,0 +1,21 @@
+{
+  "name": "json-path-finder",
+  "private": true,
+  "version": "2.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm lint && tsc && vite build",
+    "dev": "vite",
+    "lint": "prettier --check src index.html && eslint",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@eslint/js": "8.57.0",
+    "@types/ace": "0.0.52",
+    "eslint": "8.57.0",
+    "prettier": "3.2.5",
+    "typescript": "5.4.5",
+    "typescript-eslint": "7.7.1",
+    "vite": "5.2.10"
+  }
+}
