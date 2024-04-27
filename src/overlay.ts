@@ -1,12 +1,4 @@
-// to get around the headache of semver comparisons, mapping version numbers
-// to the order in which they're released
-const VERSION_MAP = {
-  "1.0.0": 1,
-  "2.0.0": 2,
-  "2.0.1": 3,
-};
-const VERSION = "2.0.1";
-const LOCAL_STORAGE_VERSION_KEY = "lastVersionViewed";
+import { storeLastVersionViewed } from "./version";
 
 function initOverlay(maskEl: HTMLDivElement) {
   function closeOverlayFromButton() {
@@ -48,10 +40,7 @@ function initOverlay(maskEl: HTMLDivElement) {
 }
 
 export function initVersion2Overlay() {
-  const currentVersion = VERSION_MAP[VERSION];
-
-  const lastVersionViewedStr = localStorage.getItem(LOCAL_STORAGE_VERSION_KEY);
-  const lastVersionViewed = parseInt(lastVersionViewedStr ?? "2", 10);
+  const lastVersionViewed = parseInt(storeLastVersionViewed() ?? "2", 10);
 
   if (lastVersionViewed < 2) {
     const overlayMask =
@@ -61,6 +50,4 @@ export function initVersion2Overlay() {
     initOverlay(overlayMask);
     overlayMask.style.display = "block";
   }
-
-  localStorage.setItem(LOCAL_STORAGE_VERSION_KEY, currentVersion.toString());
 }
