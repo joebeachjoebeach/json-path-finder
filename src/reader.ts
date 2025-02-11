@@ -134,21 +134,19 @@ export class Reader {
         // if it's just that the text is being minified/beautified, do nothing
         const newStringified = JSON.stringify(JSON.parse(newText));
         const lastStringified = JSON.stringify(JSON.parse(lastText));
-        if (newStringified === lastStringified) return;
+        if (newStringified === lastStringified) {
+          return;
+        }
 
         try {
           const newData = JSON.parse(newText);
-          this.state.set("jsonData", newData);
+          this.renderReader(newData);
           this.state.set("error", "");
         } catch (e) {
           this.state.set("error", getErrorMessage(e));
         }
       },
     );
-
-    this.state.subscribe("jsonData", "render reader", (newData) => {
-      this.renderReader(newData);
-    });
   }
 
   initErrorDisplay() {

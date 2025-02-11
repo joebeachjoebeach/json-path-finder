@@ -64,12 +64,15 @@ export function initSampleButton(state: AppState) {
 
 export function initBeautifyButton(state: AppState) {
   document.getElementById("beautify")?.addEventListener("click", () => {
-    state.set("jsonText", JSON.stringify(state.get("jsonData"), null, 2));
+    state.set(
+      "jsonText",
+      JSON.stringify(JSON.parse(state.get("jsonText")), null, 2),
+    );
   });
 }
 
 export function initMinifyButton(state: AppState) {
   document.getElementById("minify")?.addEventListener("click", () => {
-    state.set("jsonText", JSON.stringify(state.get("jsonData")));
+    state.set("jsonText", JSON.stringify(JSON.parse(state.get("jsonText"))));
   });
 }

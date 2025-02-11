@@ -1,5 +1,3 @@
-import { type JSONObjOrArr } from "./types";
-
 type SubscriberCallback<T> = (newValue: T, lastValue: T) => void;
 
 interface Subscriber<T> {
@@ -86,7 +84,6 @@ class State<StateShape extends Record<string, unknown>> {
 
 type InitialState = {
   isDarkMode: boolean;
-  jsonData: JSONObjOrArr;
   jsonText: string;
   path: string;
   copyButtonDisabled: boolean;
@@ -104,7 +101,6 @@ const initialJsonData = {
 
 const initialState: InitialState = {
   isDarkMode: false,
-  jsonData: initialJsonData,
   jsonText: JSON.stringify(initialJsonData, null, 2),
   path: "",
   copyButtonDisabled: false,
