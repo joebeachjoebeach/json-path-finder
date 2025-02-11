@@ -10,9 +10,9 @@ export function initEditor(state: AppState) {
   editor.setShowPrintMargin(false);
 
   const debouncedSetJsonText = debounce((newJsonText: string) => {
-    state.set("jsonText", newJsonText);
     try {
       JSON.parse(newJsonText);
+      state.set("jsonText", newJsonText);
     } catch (e) {
       state.set("error", getErrorMessage(e));
     }
@@ -64,10 +64,16 @@ export function initSampleButton(state: AppState) {
 
 export function initBeautifyButton(state: AppState) {
   document.getElementById("beautify")?.addEventListener("click", () => {
-    state.set(
-      "jsonText",
-      JSON.stringify(JSON.parse(state.get("jsonText")), null, 2),
-    );
+    try {
+      const newText = JSON.stringify(
+        JSON.parse(state.get("jsonText")),
+        null,
+        2,
+      );
+      state.set("jsonText", newText);
+    } catch (e) {
+      state.set("error", getErrorMessage(e));
+    }
   });
 }
 
