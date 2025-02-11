@@ -220,6 +220,7 @@ p {
 .json-reader-tree-property-value {
   color: #455a64;
   padding: 0 10px 0 25px;
+  text-align: start;
 }
 
 .json-reader-tree-property-selected {
