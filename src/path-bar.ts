@@ -9,6 +9,12 @@ export function initPathDisplay(state: AppState) {
 
     pathBarInput.value = newPath;
     state.set("copyButtonDisabled", false);
+
+    pathBarInput.classList.add("bg-highlight");
+
+    setTimeout(() => {
+      pathBarInput.classList.remove("bg-highlight");
+    }, 300);
   });
 }
 

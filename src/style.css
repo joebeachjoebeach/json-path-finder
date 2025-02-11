@@ -323,3 +323,7 @@ footer {
 .text-underline {
   text-decoration: underline;
 }
+
+.bg-highlight {
+  background-color: #fff2cc;
+}
