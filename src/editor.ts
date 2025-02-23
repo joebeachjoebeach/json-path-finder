@@ -10,12 +10,7 @@ export function initEditor(state: AppState) {
   editor.setShowPrintMargin(false);
 
   const debouncedSetJsonText = debounce((newJsonText: string) => {
-    try {
-      JSON.parse(newJsonText);
-      state.set("jsonText", newJsonText);
-    } catch (e) {
-      state.set("error", getErrorMessage(e));
-    }
+    state.set("jsonText", newJsonText);
   }, 500);
 
   editor.getSession().on("change", () => {

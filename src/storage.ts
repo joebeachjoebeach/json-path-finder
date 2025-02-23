@@ -9,6 +9,11 @@ export function setUpLocalStorage(state: AppState) {
   }
 
   state.subscribe("jsonText", "save to localStorage", (newText) => {
-    localStorage.setItem(SAVED_JSON_TEXT_KEY, newText);
+    try {
+      JSON.parse(newText);
+      localStorage.setItem(SAVED_JSON_TEXT_KEY, newText);
+    } catch (e) {
+      // ignore
+    }
   });
 }

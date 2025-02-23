@@ -131,19 +131,30 @@ export class Reader {
       "jsonText",
       "set json data when json text changes",
       (newText, lastText) => {
+        let newParsed: JSONObjOrArr | null = null;
         try {
-          // if it's just that the text is being minified/beautified, do nothing
-          const newStringified = JSON.stringify(JSON.parse(newText));
-          const lastStringified = JSON.stringify(JSON.parse(lastText));
-          if (newStringified === lastStringified) {
-            return;
-          }
-          const newData = JSON.parse(newText);
-          this.renderReader(newData);
-          this.state.set("error", "");
+          newParsed = JSON.parse(newText);
         } catch (e) {
           this.state.set("error", getErrorMessage(e));
+          return;
         }
+
+        let oldParsed: JSONObjOrArr | null = null;
+        try {
+          oldParsed = JSON.parse(lastText);
+        } catch (e) {
+          // ignore
+        }
+
+        // if it's just that the text is being minified/beautified, do nothing
+        const newStringified = JSON.stringify(newParsed);
+        const lastStringified = JSON.stringify(oldParsed);
+        if (newStringified === lastStringified) {
+          return;
+        }
+
+        this.renderReader(newParsed ?? {});
+        this.state.set("error", "");
       },
     );
   }
