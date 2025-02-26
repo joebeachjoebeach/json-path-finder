@@ -30,11 +30,7 @@ class State<StateShape extends Record<string, unknown>> {
   }
 
   get<PropType extends keyof StateShape>(prop: PropType): StateShape[PropType] {
-    const value = this.internalState[prop];
-    if (this.#debug) {
-      State.logDebug("State.get", { prop, value });
-    }
-    return value;
+    return this.internalState[prop];
   }
 
   set<PropType extends keyof StateShape>(
