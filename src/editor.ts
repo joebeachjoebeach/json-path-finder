@@ -9,6 +9,12 @@ export function initEditor(state: AppState) {
   editor.$blockScrolling = Infinity;
   editor.setShowPrintMargin(false);
 
+  // ace only re-measures on window resize, so it misses programmatic sizing
+  const editorEl = document.getElementById("editor");
+  if (editorEl) {
+    new ResizeObserver(() => editor.resize()).observe(editorEl);
+  }
+
   const debouncedSetJsonText = debounce((newJsonText: string) => {
     state.set("jsonText", newJsonText);
   }, 500);
