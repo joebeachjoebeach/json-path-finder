@@ -9,6 +9,16 @@ export function initEditor(state: AppState) {
   editor.$blockScrolling = Infinity;
   editor.setShowPrintMargin(false);
 
+  const narrowScreen = window.matchMedia("(max-width: 700px)");
+  const updateWrapMode = () => {
+    editor.getSession().setUseWrapMode(narrowScreen.matches);
+    editor.resize();
+  };
+  updateWrapMode();
+  narrowScreen.addEventListener("change", updateWrapMode);
+
+  new ResizeObserver(() => editor.resize()).observe(editor.container);
+
   const debouncedSetJsonText = debounce((newJsonText: string) => {
     state.set("jsonText", newJsonText);
   }, 500);
