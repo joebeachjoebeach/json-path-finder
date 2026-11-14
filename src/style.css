@@ -74,9 +74,9 @@ p {
   box-shadow: 0 2px 5px #858889;
   flex: 1;
   font-size: 1em;
-  height: 800px;
+  height: calc(100dvh - 90px);
   margin: 10px;
-  min-width: 480px;
+  min-width: 0;
 }
 
 /* editor box items */
@@ -117,12 +117,14 @@ p {
 
 /* path bar */
 #reader-path-bar-holder {
+  flex-shrink: 0;
   align-items: center;
   display: flex;
   height: 40px;
 }
 
 #reader-path-bar {
+  min-width: 0;
   align-items: center;
   box-shadow: 0 2px 5px #888;
   display: flex;
@@ -143,6 +145,7 @@ p {
 }
 
 #reader-path-bar-input {
+  min-width: 0;
   color: #455a64;
   flex: 1;
   font-family: "Roboto Mono", monospace;
@@ -326,4 +329,93 @@ footer {
 
 .bg-highlight {
   background-color: #fff2cc;
+}
+
+@media (max-width: 700px) {
+  #app {
+    flex-flow: column nowrap;
+  }
+
+  #title-bar {
+    height: 48px;
+  }
+
+  .big-box {
+    flex: none;
+    margin: 6px 8px;
+    height: clamp(230px, 38svh, 340px);
+  }
+
+  #editor-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #editor-button-row {
+    gap: 6px;
+    margin: 6px;
+    position: static;
+  }
+
+  .editor-button-row-button {
+    flex: 1;
+    height: 44px;
+    margin: 0;
+    width: auto;
+  }
+
+  #editor {
+    bottom: auto;
+    flex: 1;
+    font-size: 16px;
+    height: auto;
+    min-height: 0;
+  }
+
+  #reader-box {
+    height: clamp(240px, 45svh, 440px);
+  }
+
+  #reader-path-bar-holder {
+    height: 56px;
+  }
+
+  #reader-path-bar,
+  #reader-path-bar-copy {
+    height: 44px;
+  }
+
+  #reader-path-bar-input {
+    font-size: 16px;
+  }
+
+  .json-reader-tree-subtree {
+    margin-left: 10px;
+    min-width: 0;
+  }
+
+  .json-reader-tree-parent,
+  .json-reader-tree-property {
+    box-sizing: border-box;
+    min-height: 44px;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .json-reader-tree-property {
+    display: block;
+    text-align: left;
+  }
+
+  .json-reader-tree-property-value {
+    padding: 0 0 0 8px;
+  }
+
+  .overlay-container {
+    top: 50%;
+    width: calc(100% - 24px);
+    max-width: 530px;
+    max-height: calc(100% - 24px);
+    overflow: auto;
+  }
 }

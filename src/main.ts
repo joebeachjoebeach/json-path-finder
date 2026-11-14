@@ -10,7 +10,6 @@ import {
 } from "./editor";
 import { initPathDisplay, initCopyButton } from "./path-bar";
 import { initVersion2Overlay } from "./overlay";
-import { initBigBoxes } from "./big-boxes";
 import { setUpLocalStorage } from "./storage";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,6 +25,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initBeautifyButton(appState);
   initMinifyButton(appState);
   setUpLocalStorage(appState);
-  initBigBoxes();
   initVersion2Overlay();
 });
